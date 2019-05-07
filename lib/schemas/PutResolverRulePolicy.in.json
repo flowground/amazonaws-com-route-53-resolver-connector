@@ -1,0 +1,61 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Arn": {
+                    "description": "The Amazon Resource Name (ARN) of the account that you want to grant permissions to.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "ResolverRulePolicy": {
+                    "description": "An AWS Identity and Access Management policy statement that lists the permissions that you want to grant to another AWS account.",
+                    "maxLength": 5000,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Arn",
+                "ResolverRulePolicy"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

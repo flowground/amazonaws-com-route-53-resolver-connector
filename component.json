@@ -1,0 +1,414 @@
+{
+    "title": "Amazon Route 53 Resolver",
+    "description": "<p>Here's how you set up to query an Amazon Route 53 private hosted zone from your network:</p> <ol> <li> <p>Connect your network to a VPC using AWS Direct Connect or a VPN.</p> </li> <li> <p>Run the following AWS CLI command to create a Resolver endpoint:</p> <p> <code>create-resolver-endpoint --name [endpoint_name] --direction INBOUND --creator-request-id [unique_string] --security-group-ids [security_group_with_inbound_rules] --ip-addresses SubnetId=[subnet_id] SubnetId=[subnet_id_in_different_AZ]</code> </p> <p>Note the resolver endpoint ID that appears in the response. You'll use it in step 3.</p> </li> <li> <p>Get the IP addresses for the Resolver endpoints:</p> <p> <code>get-resolver-endpoint --resolver-endpoint-id [resolver_endpoint_id]</code> </p> </li> <li> <p>In your network configuration, define the IP addresses that you got in step 3 as DNS servers.</p> <p>You can now query instance names in your VPCs and the names of records in your private hosted zone.</p> </li> </ol> <p>You can also perform the following operations using the AWS CLI:</p> <ul> <li> <p> <code>list-resolver-endpoints</code>: List all endpoints. The syntax includes options for pagination and filtering.</p> </li> <li> <p> <code>update-resolver-endpoints</code>: Add IP addresses to an endpoint or remove IP addresses from an endpoint. </p> </li> </ul> <p>To delete an endpoint, use the following AWS CLI command:</p> <p> <code>delete-resolver-endpoint --resolver-endpoint-id [resolver_endpoint_id]</code> </p>",
+    "docsUrl": "https://docs.aws.amazon.com/route53resolver/",
+    "url": "https://api.apis.guru/v2/specs/amazonaws.com/route53resolver/2018-04-01/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://route53resolver.amazonaws.com/",
+                    "http://route53resolver.amazonaws.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "hmac": {
+                "label": "Authorization (hmac)",
+                "viewClass": "TextFieldView",
+                "note": "Amazon Signature authorization v4"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "AssociateResolverEndpointIpAddress": {
+            "main": "./lib/actions/AssociateResolverEndpointIpAddress.js",
+            "title": "<p>Adds IP addresses to an inbound or an outbound resolver endpoint. If you want to adding more than one IP address, submit one <code>AssociateResolverEndpointIpAddress</code> request for each IP address.</p> <p>To remove an IP address from an endpoint, see <a>DisassociateResolverEndpointIpAddress</a>.</p>",
+            "description": "<p>Adds IP addresses to an inbound or an outbound resolver endpoint. If you want to adding more than one IP address, submit one <code>AssociateResolverEndpointIpAddress</code> request for each IP address.</p> <p>To remove an IP address from an endpoint, see <a>DisassociateResolverEndpointIpAddress</a>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/AssociateResolverEndpointIpAddress.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "AssociateResolverRule": {
+            "main": "./lib/actions/AssociateResolverRule.js",
+            "title": "Associates a resolver rule with a VPC. When you associate a rule with a VPC, Resolver forwards all DNS queries for the domain name that is specified in the rule and that originate in the VPC. The queries are forwarded to the IP addresses for the DNS resolvers that are specified in the rule. For more information about rules, see <a>CreateResolverRule</a>. ",
+            "description": "Associates a resolver rule with a VPC. When you associate a rule with a VPC, Resolver forwards all DNS queries for the domain name that is specified in the rule and that originate in the VPC. The queries are forwarded to the IP addresses for the DNS resolvers that are specified in the rule. For more information about rules, see <a>CreateResolverRule</a>. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/AssociateResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreateResolverEndpoint": {
+            "main": "./lib/actions/CreateResolverEndpoint.js",
+            "title": "<p>Creates a resolver endpoint. There are two types of resolver endpoints, inbound and outbound:</p> <ul> <li> <p>An <i>inbound resolver endpoint</i> forwards DNS queries to the DNS service for a VPC from your network or another VPC.</p> </li> <li> <p>An <i>outbound resolver endpoint</i> forwards DNS queries from the DNS service for a VPC to your network or another VPC.</p> </li> </ul>",
+            "description": "<p>Creates a resolver endpoint. There are two types of resolver endpoints, inbound and outbound:</p> <ul> <li> <p>An <i>inbound resolver endpoint</i> forwards DNS queries to the DNS service for a VPC from your network or another VPC.</p> </li> <li> <p>An <i>outbound resolver endpoint</i> forwards DNS queries from the DNS service for a VPC to your network or another VPC.</p> </li> </ul>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreateResolverEndpoint.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreateResolverRule": {
+            "main": "./lib/actions/CreateResolverRule.js",
+            "title": "For DNS queries that originate in your VPCs, specifies which resolver endpoint the queries pass through, one domain name that you want to forward to your network, and the IP addresses of the DNS resolvers in your network.",
+            "description": "For DNS queries that originate in your VPCs, specifies which resolver endpoint the queries pass through, one domain name that you want to forward to your network, and the IP addresses of the DNS resolvers in your network.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreateResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeleteResolverEndpoint": {
+            "main": "./lib/actions/DeleteResolverEndpoint.js",
+            "title": "<p>Deletes a resolver endpoint. The effect of deleting a resolver endpoint depends on whether it's an inbound or an outbound resolver endpoint:</p> <ul> <li> <p> <b>Inbound</b>: DNS queries from your network or another VPC are no longer routed to the DNS service for the specified VPC.</p> </li> <li> <p> <b>Outbound</b>: DNS queries from a VPC are no longer routed to your network or to another VPC.</p> </li> </ul>",
+            "description": "<p>Deletes a resolver endpoint. The effect of deleting a resolver endpoint depends on whether it's an inbound or an outbound resolver endpoint:</p> <ul> <li> <p> <b>Inbound</b>: DNS queries from your network or another VPC are no longer routed to the DNS service for the specified VPC.</p> </li> <li> <p> <b>Outbound</b>: DNS queries from a VPC are no longer routed to your network or to another VPC.</p> </li> </ul>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeleteResolverEndpoint.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeleteResolverRule": {
+            "main": "./lib/actions/DeleteResolverRule.js",
+            "title": "Deletes a resolver rule. Before you can delete a resolver rule, you must disassociate it from all the VPCs that you associated the resolver rule with. For more infomation, see <a>DisassociateResolverRule</a>.",
+            "description": "Deletes a resolver rule. Before you can delete a resolver rule, you must disassociate it from all the VPCs that you associated the resolver rule with. For more infomation, see <a>DisassociateResolverRule</a>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeleteResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DisassociateResolverEndpointIpAddress": {
+            "main": "./lib/actions/DisassociateResolverEndpointIpAddress.js",
+            "title": "<p>Removes IP addresses from an inbound or an outbound resolver endpoint. If you want to remove more than one IP address, submit one <code>DisassociateResolverEndpointIpAddress</code> request for each IP address.</p> <p>To add an IP address to an endpoint, see <a>AssociateResolverEndpointIpAddress</a>.</p>",
+            "description": "<p>Removes IP addresses from an inbound or an outbound resolver endpoint. If you want to remove more than one IP address, submit one <code>DisassociateResolverEndpointIpAddress</code> request for each IP address.</p> <p>To add an IP address to an endpoint, see <a>AssociateResolverEndpointIpAddress</a>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DisassociateResolverEndpointIpAddress.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DisassociateResolverRule": {
+            "main": "./lib/actions/DisassociateResolverRule.js",
+            "title": "<p>Removes the association between a specified resolver rule and a specified VPC.</p> <important> <p>If you disassociate a resolver rule from a VPC, Resolver stops forwarding DNS queries for the domain name that you specified in the resolver rule. </p> </important>",
+            "description": "<p>Removes the association between a specified resolver rule and a specified VPC.</p> <important> <p>If you disassociate a resolver rule from a VPC, Resolver stops forwarding DNS queries for the domain name that you specified in the resolver rule. </p> </important>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DisassociateResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetResolverEndpoint": {
+            "main": "./lib/actions/GetResolverEndpoint.js",
+            "title": "Gets information about a specified resolver endpoint, such as whether it's an inbound or an outbound resolver endpoint, and the current status of the endpoint.",
+            "description": "Gets information about a specified resolver endpoint, such as whether it's an inbound or an outbound resolver endpoint, and the current status of the endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetResolverEndpoint.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetResolverRule": {
+            "main": "./lib/actions/GetResolverRule.js",
+            "title": "Gets information about a specified resolver rule, such as the domain name that the rule forwards DNS queries for and the ID of the outbound resolver endpoint that the rule is associated with.",
+            "description": "Gets information about a specified resolver rule, such as the domain name that the rule forwards DNS queries for and the ID of the outbound resolver endpoint that the rule is associated with.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetResolverRuleAssociation": {
+            "main": "./lib/actions/GetResolverRuleAssociation.js",
+            "title": "Gets information about an association between a specified resolver rule and a VPC. You associate a resolver rule and a VPC using <a>AssociateResolverRule</a>. ",
+            "description": "Gets information about an association between a specified resolver rule and a VPC. You associate a resolver rule and a VPC using <a>AssociateResolverRule</a>. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetResolverRuleAssociation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetResolverRulePolicy": {
+            "main": "./lib/actions/GetResolverRulePolicy.js",
+            "title": "Gets information about a resolver rule policy. A resolver rule policy specifies the Resolver operations and resources that you want to allow another AWS account to be able to use. ",
+            "description": "Gets information about a resolver rule policy. A resolver rule policy specifies the Resolver operations and resources that you want to allow another AWS account to be able to use. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetResolverRulePolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListResolverEndpointIpAddresses": {
+            "main": "./lib/actions/ListResolverEndpointIpAddresses.js",
+            "title": "Gets the IP addresses for a specified resolver endpoint.",
+            "description": "Gets the IP addresses for a specified resolver endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListResolverEndpointIpAddresses.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListResolverEndpoints": {
+            "main": "./lib/actions/ListResolverEndpoints.js",
+            "title": "Lists all the resolver endpoints that were created using the current AWS account.",
+            "description": "Lists all the resolver endpoints that were created using the current AWS account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListResolverEndpoints.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListResolverRuleAssociations": {
+            "main": "./lib/actions/ListResolverRuleAssociations.js",
+            "title": "Lists the associations that were created between resolver rules and VPCs using the current AWS account.",
+            "description": "Lists the associations that were created between resolver rules and VPCs using the current AWS account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListResolverRuleAssociations.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListResolverRules": {
+            "main": "./lib/actions/ListResolverRules.js",
+            "title": "Lists the resolver rules that were created using the current AWS account.",
+            "description": "Lists the resolver rules that were created using the current AWS account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListResolverRules.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListTagsForResource": {
+            "main": "./lib/actions/ListTagsForResource.js",
+            "title": "Lists the tags that you associated with the specified resource.",
+            "description": "Lists the tags that you associated with the specified resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListTagsForResource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "PutResolverRulePolicy": {
+            "main": "./lib/actions/PutResolverRulePolicy.js",
+            "title": "Specifies the Resolver operations and resources that you want to allow another AWS account to be able to use.",
+            "description": "Specifies the Resolver operations and resources that you want to allow another AWS account to be able to use.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/PutResolverRulePolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "TagResource": {
+            "main": "./lib/actions/TagResource.js",
+            "title": "Adds one or more tags to a specified resource.",
+            "description": "Adds one or more tags to a specified resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/TagResource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "UntagResource": {
+            "main": "./lib/actions/UntagResource.js",
+            "title": "Removes one or more tags from a specified resource.",
+            "description": "Removes one or more tags from a specified resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/UntagResource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "UpdateResolverEndpoint": {
+            "main": "./lib/actions/UpdateResolverEndpoint.js",
+            "title": "Updates the name of an inbound or an outbound resolver endpoint. ",
+            "description": "Updates the name of an inbound or an outbound resolver endpoint. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/UpdateResolverEndpoint.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "UpdateResolverRule": {
+            "main": "./lib/actions/UpdateResolverRule.js",
+            "title": "Updates settings for a specified resolver rule. <code>ResolverRuleId</code> is required, and all other parameters are optional. If you don't specify a parameter, it retains its current value.",
+            "description": "Updates settings for a specified resolver rule. <code>ResolverRuleId</code> is required, and all other parameters are optional. If you don't specify a parameter, it retains its current value.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/UpdateResolverRule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

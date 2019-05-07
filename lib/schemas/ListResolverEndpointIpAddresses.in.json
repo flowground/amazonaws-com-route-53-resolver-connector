@@ -1,0 +1,65 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "MaxResults": {
+                    "description": "The maximum number of IP addresses that you want to return in the response to a <code>ListResolverEndpointIpAddresses</code> request. If you don't specify a value for <code>MaxResults</code>, Resolver returns up to 100 IP addresses. ",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NextToken": {
+                    "description": "<p>For the first <code>ListResolverEndpointIpAddresses</code> request, omit this value.</p> <p>If the specified resolver endpoint has more than <code>MaxResults</code> IP addresses, you can submit another <code>ListResolverEndpointIpAddresses</code> request to get the next group of IP addresses. In the next request, specify the value of <code>NextToken</code> from the previous response. </p>",
+                    "type": "string"
+                },
+                "ResolverEndpointId": {
+                    "description": "The ID of the resolver endpoint that you want to get IP addresses for.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ResolverEndpointId"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

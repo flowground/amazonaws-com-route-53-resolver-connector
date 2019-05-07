@@ -1,0 +1,68 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Name": {
+                    "description": "A name for the association that you're creating between a resolver rule and a VPC.",
+                    "maxLength": 64,
+                    "pattern": "(?!^[0-9]+$)([a-zA-Z0-9-_' ']+)",
+                    "type": "string"
+                },
+                "ResolverRuleId": {
+                    "description": "The ID of the resolver rule that you want to associate with the VPC. To list the existing resolver rules, use <a>ListResolverRules</a>.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "VPCId": {
+                    "description": "The ID of the VPC that you want to associate the resolver rule with.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ResolverRuleId",
+                "VPCId"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

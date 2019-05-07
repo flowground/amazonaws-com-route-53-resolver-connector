@@ -1,0 +1,81 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Filters": {
+                    "description": "<p>An optional specification to return a subset of resolver rules, such as all resolver rules that are associated with the same resolver endpoint.</p> <note> <p>If you submit a second or subsequent <code>ListResolverRules</code> request and specify the <code>NextToken</code> parameter, you must use the same values for <code>Filters</code>, if any, as in the previous request.</p> </note>",
+                    "items": {
+                        "description": "For <code>List</code> operations, an optional specification to return a subset of objects, such as resolver endpoints or resolver rules.",
+                        "properties": {
+                            "Name": {
+                                "description": "When you're using a <code>List</code> operation and you want the operation to return a subset of objects, such as resolver endpoints or resolver rules, the name of the parameter that you want to use to filter objects. For example, to list only inbound resolver endpoints, specify <code>Direction</code> for the value of <code>Name</code>.",
+                                "maxLength": 64,
+                                "minLength": 1,
+                                "type": "string"
+                            },
+                            "Values": {
+                                "description": "When you're using a <code>List</code> operation and you want the operation to return a subset of objects, such as resolver endpoints or resolver rules, the value of the parameter that you want to use to filter objects. For example, to list only inbound resolver endpoints, specify <code>INBOUND</code> for the value of <code>Values</code>.",
+                                "items": {
+                                    "maxLength": 64,
+                                    "minLength": 1,
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of resolver rules that you want to return in the response to a <code>ListResolverRules</code> request. If you don't specify a value for <code>MaxResults</code>, Resolver returns up to 100 resolver rules.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NextToken": {
+                    "description": "<p>For the first <code>ListResolverRules</code> request, omit this value.</p> <p>If you have more than <code>MaxResults</code> resolver rules, you can submit another <code>ListResolverRules</code> request to get the next group of resolver rules. In the next request, specify the value of <code>NextToken</code> from the previous response. </p>",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

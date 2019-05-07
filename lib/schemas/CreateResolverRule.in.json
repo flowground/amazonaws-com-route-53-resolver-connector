@@ -1,0 +1,128 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CreatorRequestId": {
+                    "description": "A unique string that identifies the request and that allows failed requests to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique string, for example, a date/time stamp. ",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "DomainName": {
+                    "description": "DNS queries for this domain name are forwarded to the IP addresses that you specify in <code>TargetIps</code>. If a query matches multiple resolver rules (example.com and www.example.com), outbound DNS queries are routed using the resolver rule that contains the most specific domain name (www.example.com).",
+                    "maxLength": 256,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "A friendly name that lets you easily find a rule in the Resolver dashboard in the Route 53 console.",
+                    "maxLength": 64,
+                    "pattern": "(?!^[0-9]+$)([a-zA-Z0-9-_' ']+)",
+                    "type": "string"
+                },
+                "ResolverEndpointId": {
+                    "description": "The ID of the outbound resolver endpoint that you want to use to route DNS queries to the IP addresses that you specify in <code>TargetIps</code>.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "RuleType": {
+                    "description": "Specify <code>FORWARD</code>. Other resolver rule types aren't supported.",
+                    "enum": [
+                        "FORWARD",
+                        "SYSTEM",
+                        "RECURSIVE"
+                    ],
+                    "type": "string"
+                },
+                "Tags": {
+                    "description": "A list of the tag keys and values that you want to associate with the endpoint.",
+                    "items": {
+                        "description": "One tag that you want to add to the specified resource. A tag consists of a <code>Key</code> (a name for the tag) and a <code>Value</code>.",
+                        "properties": {
+                            "Key": {
+                                "description": "The name for the tag. For example, if you want to associate Resolver resources with the account IDs of your customers for billing purposes, the value of <code>Key</code> might be <code>account-id</code>.",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The value for the tag. For example, if <code>Key</code> is <code>account-id</code>, then <code>Value</code> might be the ID of the customer account that you're creating the resource for.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "TargetIps": {
+                    "description": "The IPs that you want Resolver to forward DNS queries to. You can specify only IPv4 addresses. Separate IP addresses with a comma.",
+                    "items": {
+                        "description": "In a <a>CreateResolverRule</a> request, an array of the IPs that you want to forward DNS queries to.",
+                        "properties": {
+                            "Ip": {
+                                "description": "One IP address that you want to forward DNS queries to. You can specify only IPv4 addresses.",
+                                "maxLength": 36,
+                                "minLength": 7,
+                                "type": "string"
+                            },
+                            "Port": {
+                                "description": "The port at <code>Ip</code> that you want to forward DNS queries to.",
+                                "maximum": 65535,
+                                "minimum": 0,
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "Ip"
+                        ],
+                        "type": "object"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "CreatorRequestId",
+                "RuleType",
+                "DomainName"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

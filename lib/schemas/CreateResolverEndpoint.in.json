@@ -1,0 +1,126 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CreatorRequestId": {
+                    "description": "A unique string that identifies the request and that allows failed requests to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique string, for example, a date/time stamp. ",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "Direction": {
+                    "description": "<p>Specify the applicable value:</p> <ul> <li> <p> <code>INBOUND</code>: Resolver forwards DNS queries to the DNS service for a VPC from your network or another VPC</p> </li> <li> <p> <code>OUTBOUND</code>: Resolver forwards DNS queries from the DNS service for a VPC to your network or another VPC</p> </li> </ul>",
+                    "enum": [
+                        "INBOUND",
+                        "OUTBOUND"
+                    ],
+                    "type": "string"
+                },
+                "IpAddresses": {
+                    "description": "The subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound resolver endpoints). ",
+                    "items": {
+                        "description": "In an <a>CreateResolverEndpoint</a> request, a subnet and IP address that you want to use for DNS queries.",
+                        "properties": {
+                            "Ip": {
+                                "description": "The IP address that you want to use for DNS queries.",
+                                "maxLength": 36,
+                                "minLength": 7,
+                                "type": "string"
+                            },
+                            "SubnetId": {
+                                "description": "The subnet that contains the IP address.",
+                                "maxLength": 32,
+                                "minLength": 1,
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "SubnetId"
+                        ],
+                        "type": "object"
+                    },
+                    "maxItems": 10,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "Name": {
+                    "description": "A friendly name that lets you easily find a configuration in the Resolver dashboard in the Route 53 console.",
+                    "maxLength": 64,
+                    "pattern": "(?!^[0-9]+$)([a-zA-Z0-9-_' ']+)",
+                    "type": "string"
+                },
+                "SecurityGroupIds": {
+                    "description": "The ID of one or more security groups that you want to use to control access to this VPC. The security group that you specify must include one or more inbound rules (for inbound resolver endpoints) or outbound rules (for outbound resolver endpoints).",
+                    "items": {
+                        "maxLength": 64,
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "Tags": {
+                    "description": "A list of the tag keys and values that you want to associate with the endpoint.",
+                    "items": {
+                        "description": "One tag that you want to add to the specified resource. A tag consists of a <code>Key</code> (a name for the tag) and a <code>Value</code>.",
+                        "properties": {
+                            "Key": {
+                                "description": "The name for the tag. For example, if you want to associate Resolver resources with the account IDs of your customers for billing purposes, the value of <code>Key</code> might be <code>account-id</code>.",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The value for the tag. For example, if <code>Key</code> is <code>account-id</code>, then <code>Value</code> might be the ID of the customer account that you're creating the resource for.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "CreatorRequestId",
+                "SecurityGroupIds",
+                "Direction",
+                "IpAddresses"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

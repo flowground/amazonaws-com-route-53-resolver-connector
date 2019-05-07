@@ -1,0 +1,80 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "IpAddress": {
+                    "description": "Either the IPv4 address that you want to add to a resolver endpoint or a subnet ID. If you specify a subnet ID, Resolver chooses an IP address for you from the available IPs in the specified subnet.",
+                    "properties": {
+                        "Ip": {
+                            "description": "The new IP address.",
+                            "maxLength": 36,
+                            "minLength": 7,
+                            "type": "string"
+                        },
+                        "IpId": {
+                            "description": " <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want to remove. To get this ID, use <a>GetResolverEndpoint</a>.",
+                            "maxLength": 64,
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "SubnetId": {
+                            "description": "The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a>GetResolverEndpoint</a>.",
+                            "maxLength": 32,
+                            "minLength": 1,
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "ResolverEndpointId": {
+                    "description": "The ID of the resolver endpoint that you want to associate IP addresses with.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ResolverEndpointId",
+                "IpAddress"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
